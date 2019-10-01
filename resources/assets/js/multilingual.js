@@ -30,7 +30,8 @@
 
     var pluginName = "multilingual",
         defaults = {
-            editing:       false,                       // Editing or View
+            editing:       false,      
+            add_class_editing: '',                 // Editing or View
             form:          '.form-edit-add',
             transInputs:   'input[data-i18n = true]', // Hidden inputs holding translations
             langSelectors: '.language-selector:first input' // Language selector inputs
@@ -94,8 +95,8 @@
              */
             this.transInputs.each(function(i, inp) {
                 var _inp   = $(inp),
-                    inpUsr = _inp.nextAll(_this.settings.editing ? '.form-control' : '');
-                console.log(_inp,  this.transInputs);
+                inpUsr = _inp.nextAll(_this.settings.editing ? '.form-control' + _this.settings.add_class_editing : '' + _this.settings.add_class_editing);
+    
 
                 inpUsr.data("inp", _inp);
                 _inp.data("inpUsr", inpUsr);

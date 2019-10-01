@@ -75,7 +75,7 @@
                         @include('voyager::multilingual.language-selector')
                         <label for="name">{{ __('voyager::menu_builder.item_title') }}</label>
                         @include('voyager::multilingual.input-hidden', ['_field_name' => 'title', '_field_trans' => ''])
-                        <input type="text" class="form-control" id="m_title" name="title" placeholder="{{ __('voyager::generic.title') }}"><br>
+                        <input type="text" class="form-control multi_edit" id="m_title" name="title" placeholder="{{ __('voyager::generic.title') }}"><br>
                         <label for="type">{{ __('voyager::menu_builder.link_type') }}</label>
                         <select id="m_link_type" class="form-control" name="type">
                             <option value="url" selected="selected">{{ __('voyager::menu_builder.static_url') }}</option>
@@ -140,7 +140,8 @@
                     "form":          'form',
                     "transInputs":   '#menu_item_modal input[data-i18n=true]',
                     "langSelectors": '.language-selector input',
-                    "editing":       true
+                    "editing":       true,
+                    'add_class_editing': '.multi_edit'
                 });
             @endif
 
