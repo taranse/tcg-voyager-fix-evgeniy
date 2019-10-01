@@ -88,7 +88,6 @@
          */
         refresh: function() {
             var _this = this;
- console.log(_inp);
 
             /**
              * Setup translatable inputs
@@ -96,6 +95,7 @@
             this.transInputs.each(function(i, inp) {
                 var _inp   = $(inp),
                     inpUsr = _inp.nextAll(_this.settings.editing ? '.form-control' : '');
+                console.log(_inp,  this.transInputs);
 
                 inpUsr.data("inp", _inp);
                 _inp.data("inpUsr", inpUsr);
