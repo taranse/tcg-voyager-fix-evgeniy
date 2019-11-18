@@ -319,7 +319,12 @@ class VoyagerBaseController extends Controller
                     'alert-type' => 'success',
                 ]);
         } else {
-            return redirect()->back();
+            return redirect()
+                ->route("voyager.{$dataType->slug}.edit")
+                ->with([
+                    'message'    => __('voyager::generic.successfully_updated') . " {$dataType->getTranslatedAttribute('display_name_singular')}",
+                    'alert-type' => 'success',
+                ]);
         }
     }
 
