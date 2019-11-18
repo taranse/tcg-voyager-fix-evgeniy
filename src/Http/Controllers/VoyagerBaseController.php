@@ -311,7 +311,7 @@ class VoyagerBaseController extends Controller
 
         event(new BreadDataUpdated($dataType, $data));
 
-        if ($this->authorize('browse', $data)) {
+        if ($this->authorize('browse', $data) and $this->authorize('read', $data)) {
             return redirect()
                 ->route("voyager.{$dataType->slug}.index")
                 ->with([
