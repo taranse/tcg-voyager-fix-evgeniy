@@ -182,10 +182,12 @@ $(document).ready(function () {
     /********** MARKDOWN EDITOR **********/
 
     $('textarea.simplemde').each(function () {
-        var simplemde = new SimpleMDE({
+        var _this = this;
+        _this.simplemde = new SimpleMDE({
             element: this,
         });
-        simplemde.render();
+
+        _this.simplemde.render();
     });
 
     /********** END MARKDOWN EDITOR **********/
