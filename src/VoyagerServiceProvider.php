@@ -328,11 +328,11 @@ class VoyagerServiceProvider extends ServiceProvider
             'timestamp',
             'hidden',
             'coordinates',
+            'todo_list',
         ];
 
         foreach ($formFields as $formField) {
             $class = studly_case("{$formField}_handler");
-
             VoyagerFacade::addFormField("TCG\\Voyager\\FormFields\\{$class}");
         }
 

@@ -33,6 +33,38 @@ var admin_menu = new Vue({
 
 $(document).ready(function () {
 
+    $('.todo_list_container').each(function (index, item) {
+        $values = $(item).children('input[type=hidden]');
+        var values = JSON.parse($values.val());
+        var $ul = $(item).find('ul');
+        var $button = $(item).find('button.addBtn');
+        var $input = $(item).find('input[type=text]');
+        var render = function () {
+            $ul.html(values.map(function (value) {
+                return '<li class="col-xs-12 todo_item">' + value + '<button type="button" class="close delete_todo_item" data-name="'
+                 + value + '" aria-label="Close"><span aria-hidden="true">&times;</span></button></li>';
+            }).join(''))
+        }
+        $button.click(function () {
+            if ($input.val()) {
+                values.push($input.val());
+                $values.val(JSON.stringify(values));
+                render();
+            }
+        });
+
+        $ul.on('click', 'li button.delete_todo_item', function (button_event) {
+            var value = values.indexOf(button_event.currentTarget.dataset.name);
+            if (value > -1) {
+                values.splice(value, 1);
+            }
+            $values.val(JSON.stringify(values));
+            render();
+        })
+
+        render();
+    });
+
     var appContainer = $(".app-container"),
         fadedOverlay = $('.fadetoblack'),
         hamburger = $('.hamburger');

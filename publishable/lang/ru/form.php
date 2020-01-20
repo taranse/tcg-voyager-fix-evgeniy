@@ -12,4 +12,5 @@ return [
     'type_selectdropdown'          => 'Выпадающий список',
     'type_textarea'                => 'Многострочный текст',
     'type_textbox'                 => 'Однострочный текст',
+    'todo_list'                    => 'Редактируемый список',
 ];
