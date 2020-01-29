@@ -26,6 +26,7 @@ use TCG\Voyager\Models\Permission;
 use TCG\Voyager\Models\Post;
 use TCG\Voyager\Models\Role;
 use TCG\Voyager\Models\Setting;
+use TCG\Voyager\Models\SettingGroup;
 use TCG\Voyager\Models\Translation;
 use TCG\Voyager\Models\User;
 use TCG\Voyager\Traits\Translatable;
@@ -61,6 +62,7 @@ class Voyager
         'Post'        => Post::class,
         'Role'        => Role::class,
         'Setting'     => Setting::class,
+        'SettingGroup'     => SettingGroup::class,
         'User'        => User::class,
         'Translation' => Translation::class,
     ];
@@ -248,7 +250,7 @@ class Voyager
 
     public function routes()
     {
-        require __DIR__.'/../routes/voyager.php';
+        require __DIR__ . '/../routes/voyager.php';
     }
 
     public function getVersion()
@@ -324,6 +326,6 @@ class Voyager
 
     public function getLocales()
     {
-        return array_diff(scandir(realpath(__DIR__.'/../publishable/lang')), ['..', '.']);
+        return array_diff(scandir(realpath(__DIR__ . '/../publishable/lang')), ['..', '.']);
     }
 }

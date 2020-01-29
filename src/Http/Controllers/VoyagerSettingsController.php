@@ -37,9 +37,11 @@ class VoyagerSettingsController extends Controller
             }
         }
 
+        $settings_group = Voyager::model('SettingGroup')->all();
+
         $active = (request()->session()->has('setting_tab')) ? request()->session()->get('setting_tab') : old('setting_tab', key($settings));
 
-        return Voyager::view('voyager::settings.index', compact('settings', 'groups', 'active'));
+        return Voyager::view('voyager::settings.index', compact('settings', 'groups', 'active', 'settings_group'));
     }
 
     public function store(Request $request)
@@ -84,28 +86,35 @@ class VoyagerSettingsController extends Controller
         // Check permission
         $this->authorize('edit', Voyager::model('Setting'));
 
+
         $settings = Voyager::model('Setting')->all();
 
         foreach ($settings as $setting) {
             $content = $this->getContentBasedOnType($request, 'settings', (object) [
                 'type'    => $setting->type,
                 'field'   => str_replace('.', '_', $setting->key),
-                'group'   => $setting->group,
+                'group'   => $setting->group
             ], $setting->details);
 
             if ($setting->type == 'image' && $content == null) {
+                $setting->setting_group = $request->input(str_replace('.', '_', $setting->key).'_setting_group');
+                $setting->save();
                 continue;
             }
 
             if ($setting->type == 'file' && $content == json_encode([])) {
+                $setting->setting_group = $request->input(str_replace('.', '_', $setting->key).'_setting_group');
+                $setting->save();
                 continue;
             }
 
             $key = preg_replace('/^'.Str::slug($setting->group).'./i', '', $setting->key);
 
             $setting->group = $request->input(str_replace('.', '_', $setting->key).'_group');
+            $setting->setting_group = $request->input(str_replace('.', '_', $setting->key).'_setting_group');
             $setting->key = implode('.', [Str::slug($setting->group), $key]);
             $setting->value = $content;
+            // dd($setting);
             $setting->save();
         }
 

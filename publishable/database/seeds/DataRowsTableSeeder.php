@@ -14,6 +14,37 @@ class DataRowsTableSeeder extends Seeder
         $userDataType = DataType::where('slug', 'users')->firstOrFail();
         $menuDataType = DataType::where('slug', 'menus')->firstOrFail();
         $roleDataType = DataType::where('slug', 'roles')->firstOrFail();
+        $settingGroupDataType = DataType::where('slug', 'settings-group')->firstOrFail();
+
+        $dataRow = $this->dataRow($settingGroupDataType, 'id');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'number',
+                'display_name' => __('voyager::seeders.data_rows.id'),
+                'required'     => 1,
+                'browse'       => 0,
+                'read'         => 0,
+                'edit'         => 0,
+                'add'          => 0,
+                'delete'       => 0,
+                'order'        => 1,
+            ])->save();
+        }
+        
+        $dataRow = $this->dataRow($settingGroupDataType, 'name');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'text',
+                'display_name' => __('voyager::seeders.data_rows.name'),
+                'required'     => 1,
+                'browse'       => 1,
+                'read'         => 1,
+                'edit'         => 1,
+                'add'          => 1,
+                'delete'       => 1,
+                'order'        => 1,
+            ])->save();
+        }
 
         $dataRow = $this->dataRow($userDataType, 'id');
         if (!$dataRow->exists) {

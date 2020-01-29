@@ -52,6 +52,20 @@ class DataTypesTableSeeder extends Seeder
                 'description'           => '',
             ])->save();
         }
+
+        $dataType = $this->dataType('slug', 'settings-group');
+        if (!$dataType->exists) {
+            $dataType->fill([
+                'name'                  => 'settings-group',
+                'display_name_singular' => __('voyager::seeders.data_types.settings_group.singular'),
+                'display_name_plural'   => __('voyager::seeders.data_types.settings_group.plural'),
+                'icon'                  => 'voyager-pie-chart',
+                'model_name'            => 'TCG\\Voyager\\Models\\SettingGroup',
+                'controller'            => '',
+                'generate_permissions'  => 1,
+                'description'           => '',
+            ])->save();
+        }
     }
 
     /**

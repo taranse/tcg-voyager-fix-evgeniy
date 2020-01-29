@@ -321,7 +321,17 @@
                                 </div>
                                 <div class="clearfix"></div>
                                 @elseif($setting->type == "file" && isset( $setting->value ))
-                                <div class="fileType">{{ $setting->value }}</div>
+                                @foreach(json_decode($setting->value) as $file)
+                                <div data-field-name="{{ $setting->key }}">
+                                    <a class="fileType" target="_blank"
+                                        href="{{ Storage::disk(config('voyager.storage.disk'))->url($file->download_link) ?: '' }}"
+                                        data-file-name="{{ $file->original_name }}"
+                                        data-id="{{ $setting->id }}">
+                                        {{ $file->original_name ?: '' }}
+                                    </a>
+                                    <a href="#" class="voyager-x remove-multi-file"></a>
+                                </div>
+                                @endforeach
                                 @endif
                                 <input type="file" name="{{ $setting->key }}">
                                 @elseif($setting->type == "select_dropdown")
@@ -382,12 +392,23 @@
 
                             </div>
                             <div class="col-md-2 no-padding-left-right">
-                                <select class="form-control group_select" name="{{ $setting->key }}_group">
-                                    @foreach($groups as $group)
-                                    <option value="{{ $group }}" {!! $setting->group == $group ? 'selected' : ''
-                                        !!}>{{ $group }}</option>
-                                    @endforeach
-                                </select>
+                                <div>
+                                    <select class="form-control group_select" name="{{ $setting->key }}_group">
+                                        @foreach($groups as $group)
+                                        <option value="{{ $group }}" {!! $setting->group == $group ? 'selected' : ''
+                                            !!}>{{ $group }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div>                             
+                                    <select style="margin-left: 10px;" class="form-control" name="{{ $setting->key }}_setting_group">
+                                        <option value="null">Выберите вкладку</option>
+                                        @foreach($settings_group as $group)
+                                        <option value="{{ $group->name }}" {!! $setting->setting_group == $group->name ? 'selected' : ''
+                                            !!}>{{ $group->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         @if(!$loop->last)
@@ -420,7 +441,7 @@
                     <input type="text" class="form-control" name="display_name"
                         placeholder="{{ __('voyager::settings.help_name') }}" required="required">
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label for="key">{{ __('voyager::generic.key') }}</label>
                     <input type="text" class="form-control" name="key"
                         placeholder="{{ __('voyager::settings.help_key') }}" required="required">
@@ -441,11 +462,20 @@
                         <option value="todo_list">{{ __('voyager::form.todo_list') }}</option>
                     </select>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label for="group">{{ __('voyager::settings.group') }}</label>
                     <select class="form-control group_select group_select_new" name="group">
                         @foreach($groups as $group)
                         <option value="{{ $group }}">{{ $group }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="group">Вкладка</label>
+                    <select class="form-control" name="setting_group">
+                        <option value="">Выберите вкладку</option>
+                        @foreach($settings_group as $group)
+                        <option value="{{ $group->name }}">{{ $group->name }}</option>
                         @endforeach
                     </select>
                 </div>

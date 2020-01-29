@@ -53,6 +53,10 @@ return [
             'singular' => 'User',
             'plural'   => 'Users',
         ],
+        'settings_group' => [
+            'singular' => 'Setting group',
+            'plural'   => 'Settings group',
+        ]
     ],
     'menu_items' => [
         'bread'        => 'BREAD',
@@ -66,6 +70,7 @@ return [
         'posts'        => 'Posts',
         'roles'        => 'Roles',
         'settings'     => 'Settings',
+        'settings_group'     => 'Settings group',
         'tools'        => 'Tools',
         'users'        => 'Users',
     ],

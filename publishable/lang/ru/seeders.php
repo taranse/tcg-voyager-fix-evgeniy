@@ -53,6 +53,10 @@ return [
             'singular' => 'Пользователь',
             'plural'   => 'Пользователи',
         ],
+        'settings_group' => [
+            'singular' => 'Группа настроек',
+            'plural'   => 'Группы настроек',
+        ]
     ],
     'menu_items' => [
         'bread'        => 'BREAD',
@@ -66,6 +70,7 @@ return [
         'posts'        => 'Статьи',
         'roles'        => 'Роли',
         'settings'     => 'Настройки',
+        'settings_group'     => 'Группы настроек',
         'tools'        => 'Инструменты',
         'users'        => 'Пользователи',
     ],

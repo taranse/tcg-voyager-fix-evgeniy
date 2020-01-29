@@ -13,6 +13,7 @@ class File extends BaseType
      */
     public function handle()
     {
+
         if (!$this->request->hasFile($this->row->field)) {
             return;
         }

@@ -358,6 +358,8 @@ class VoyagerBaseController extends Controller
             $dataType->addRows[$key]['col_width'] = $row->details->width ?? 100;
         }
 
+        
+
         // If a column has a relationship associated with it, we do not want to show that field
         $this->removeRelationshipField($dataType, 'add');
 
