@@ -10,7 +10,7 @@ Please take a look at our [prerequisites](../getting-started/prerequisites.md) b
 
 To update to the latest version inside of your composer.json file make sure to update the version of Voyager inside the require declaration inside of your composer.json to:
 
-`tcg/voyager": "1.3.*`
+`tcg-fix-evgeniy/voyager": "1.3.*`
 
 And then run `composer update`
 
