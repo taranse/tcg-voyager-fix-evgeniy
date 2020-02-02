@@ -312,6 +312,7 @@ class VoyagerServiceProvider extends ServiceProvider
             'date',
             'file',
             'image',
+            'video',
             'multiple_images',
             'media_picker',
             'number',

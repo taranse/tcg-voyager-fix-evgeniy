@@ -310,7 +310,7 @@
                                     name="{{ $setting->key }}">{{ $setting->value ?? '' }}</div>
                                 <textarea name="{{ $setting->key }}" id="{{ $setting->key }}_textarea"
                                     class="hidden">{{ $setting->value ?? '' }}</textarea>
-                                @elseif($setting->type == "image" || $setting->type == "file")
+                                @elseif($setting->type == "image" || $setting->type == "file" || $setting->type == "video")
                                 @if(isset( $setting->value ) && !empty( $setting->value ) &&
                                 Storage::disk(config('voyager.storage.disk'))->exists($setting->value))
                                 <div class="img_settings_container">
@@ -321,6 +321,7 @@
                                 </div>
                                 <div class="clearfix"></div>
                                 @elseif($setting->type == "file" && isset( $setting->value ))
+                                @if (!empty($setting->value))
                                 @foreach(json_decode($setting->value) as $file)
                                 <div data-field-name="{{ $setting->key }}">
                                     <a class="fileType" target="_blank"
@@ -331,7 +332,22 @@
                                     </a>
                                     <a href="#" class="voyager-x remove-multi-file"></a>
                                 </div>
-                                @endforeach
+                                @endforeach                                    
+                                @endif
+                                @elseif($setting->type == "video" && isset( $setting->value ))
+                                @if (!empty($setting->value))
+                                @foreach(json_decode($setting->value) as $file)
+                                <div data-field-name="{{ $setting->key }}">
+                                    <a class="fileType" target="_blank"
+                                        href="{{ Storage::disk(config('voyager.storage.disk'))->url($file->download_link) ?: '' }}"
+                                        data-file-name="{{ $file->original_name }}"
+                                        data-id="{{ $setting->id }}">
+                                        {{ $file->original_name ?: '' }}
+                                    </a>
+                                    <a href="#" class="voyager-x remove-multi-file"></a>
+                                </div>
+                                @endforeach                                    
+                                @endif
                                 @endif
                                 <input type="file" name="{{ $setting->key }}">
                                 @elseif($setting->type == "select_dropdown")
@@ -459,6 +475,7 @@
                         <option value="select_dropdown">{{ __('voyager::form.type_selectdropdown') }}</option>
                         <option value="file">{{ __('voyager::form.type_file') }}</option>
                         <option value="image">{{ __('voyager::form.type_image') }}</option>
+                        <option value="video">Видео</option>
                         <option value="todo_list">{{ __('voyager::form.todo_list') }}</option>
                     </select>
                 </div>

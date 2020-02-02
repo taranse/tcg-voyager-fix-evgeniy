@@ -108,6 +108,12 @@ class VoyagerSettingsController extends Controller
                 continue;
             }
 
+            if ($setting->type == 'video' && $content == json_encode([])) {
+                $setting->setting_group = $request->input(str_replace('.', '_', $setting->key).'_setting_group');
+                $setting->save();
+                continue;
+            }
+
             $key = preg_replace('/^'.Str::slug($setting->group).'./i', '', $setting->key);
 
             $setting->group = $request->input(str_replace('.', '_', $setting->key).'_group');

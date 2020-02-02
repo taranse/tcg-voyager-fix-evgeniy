@@ -227,6 +227,9 @@ abstract class Controller extends BaseController
             /********** FILE TYPE **********/
             case 'file':
                 return (new File($request, $slug, $row, $options))->handle();
+            /********** VIDEO TYPE **********/
+            case 'video':
+                return (new File($request, $slug, $row, $options, 'video'))->handle();
             /********** MULTIPLE IMAGES TYPE **********/
             case 'multiple_images':
                 return (new MultipleImage($request, $slug, $row, $options))->handle();
