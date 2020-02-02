@@ -4,6 +4,7 @@ namespace TCG\Voyager\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
 class ControllersCommand extends Command
@@ -61,12 +62,12 @@ class ControllersCommand extends Command
     public function handle()
     {
         $stub = $this->getStub();
-        $files = $this->filesystem->files(base_path('vendor/tcg-fix-evgeniy/voyager/src/Http/Controllers'));
+        $files = $this->filesystem->files(base_path('vendor/tcg/voyager/src/Http/Controllers'));
         $namespace = config('voyager.controllers.namespace', 'TCG\\Voyager\\Http\\Controllers');
 
         $appNamespace = app()->getNamespace();
 
-        if (!starts_with($namespace, $appNamespace)) {
+        if (!Str::startsWith($namespace, $appNamespace)) {
             return $this->error('The controllers namespace must start with your application namespace: '.$appNamespace);
         }
 
@@ -103,7 +104,7 @@ class ControllersCommand extends Command
      */
     public function getStub()
     {
-        return $this->filesystem->get(base_path('/vendor/tcg-fix-evgeniy/voyager/stubs/'.$this->stub));
+        return $this->filesystem->get(base_path('/vendor/tcg/voyager/stubs/'.$this->stub));
     }
 
     /**
