@@ -304,6 +304,7 @@ class VoyagerBaseController extends Controller
     {
         $slug = $this->getSlug($request);
 
+
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
 
         // Compatibility with Model binding.

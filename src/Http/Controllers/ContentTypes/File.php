@@ -5,6 +5,8 @@ namespace TCG\Voyager\Http\Controllers\ContentTypes;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use FFMpeg\Format\Video\X264;
+use Pbmedia\LaravelFFMpeg\FFMpegFacade as FFMpegg;
 
 class File extends BaseType
 {
@@ -26,17 +28,34 @@ class File extends BaseType
             $filename = $this->generateFileName($file, $path);
             $file->storeAs(
                 $path,
-                $filename.'.'.$file->getClientOriginalExtension(),
+                $this->type == 'video' ? $file->getClientOriginalName() : $filename.'.'.$file->getClientOriginalExtension(),
                 config('voyager.storage.disk', 'public')
             );
 
-            array_push($filesPath, [
-                'download_link' => $path.$filename.'.'.$file->getClientOriginalExtension(),
+            $data = [
+                'download_link' =>  $this->type == 'video' ? $path . $file->getClientOriginalName() : $path . $filename.'.'.$file->getClientOriginalExtension(),
                 'original_name' => $file->getClientOriginalName(),
-            ]);
+            ];
+
+            if ($this->type == 'video') {     
+                $data['download_link_h264'] = $this->videoGenerate($path, $file->getClientOriginalExtension(), $file->getClientOriginalName());
+            }
+
+            array_push($filesPath, $data);
         }
 
         return json_encode($filesPath);
+    }
+
+    protected function videoGenerate($disk, $file, $name) {
+        $video = FFMpegg::fromDisk('public')->open($disk . $name);
+
+        $video->export()
+            ->toDisk('public')
+            ->inFormat((new X264('aac'))->setKiloBitrate(sqrt($video->getStreams()->first()->get('bit_rate') / 1000 / 1000) * 500))
+            ->save($disk . str_replace('.' . $file, '', $name) . '.h264.' . $file);
+
+        return $disk . str_replace('.' . $file, '', $name) . '.h264.' . $file;
     }
 
     /**

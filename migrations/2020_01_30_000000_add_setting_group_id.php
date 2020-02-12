@@ -14,7 +14,7 @@ class AddSettingGroupId extends Migration
     public function up()
     {
         Schema::table('settings', function (Blueprint $table) {
-            $table->text('setting_group')->nullable();
+            $table->text('setting_group')->default('null');
         });
     }
 

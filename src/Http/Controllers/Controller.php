@@ -106,6 +106,14 @@ abstract class Controller extends BaseController
                     }
                 }
 
+                // If the file upload is null and it has a current file keep the current file
+                if ($row->type == 'video') {
+                    $content = $data->{$row->field};
+                    if (!$content) {
+                        $content = json_encode([]);
+                    }
+                }
+
                 if ($row->type == 'password') {
                     $content = $data->{$row->field};
                 }
@@ -243,6 +251,9 @@ abstract class Controller extends BaseController
             /********** FILE TYPE **********/
             case 'file':
                 return (new File($request, $slug, $row, $options))->handle();
+            /********** FILE TYPE **********/
+            case 'video':
+                return (new File($request, $slug, $row, $options, 'video'))->handle();
             /********** MULTIPLE IMAGES TYPE **********/
             case 'multiple_images':
                 return (new MultipleImage($request, $slug, $row, $options))->handle();

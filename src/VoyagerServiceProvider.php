@@ -17,6 +17,7 @@ use Illuminate\Support\Str;
 use Intervention\Image\ImageServiceProvider;
 use Larapack\DoctrineSupport\DoctrineSupportServiceProvider;
 use Larapack\VoyagerHooks\VoyagerHooksServiceProvider;
+use Pbmedia\LaravelFFMpeg\FFMpegServiceProvider;
 use TCG\Voyager\Events\FormFieldsRegistered;
 use TCG\Voyager\Facades\Voyager as VoyagerFacade;
 use TCG\Voyager\FormFields\After\DescriptionHandler;
@@ -58,6 +59,7 @@ class VoyagerServiceProvider extends ServiceProvider
     {
         $this->app->register(VoyagerEventServiceProvider::class);
         $this->app->register(ImageServiceProvider::class);
+        $this->app->register(FFMpegServiceProvider::class);
         $this->app->register(VoyagerDummyServiceProvider::class);
         $this->app->register(VoyagerHooksServiceProvider::class);
         $this->app->register(DoctrineSupportServiceProvider::class);
@@ -264,6 +266,9 @@ class VoyagerServiceProvider extends ServiceProvider
 
     public function registerConfigs()
     {
+        $this->mergeConfigFrom(
+            dirname(__DIR__).'/publishable/config/laravel-ffmpeg.php', 'laravel-ffmpeg'
+        );
         $this->mergeConfigFrom(
             dirname(__DIR__).'/publishable/config/voyager.php', 'voyager'
         );
