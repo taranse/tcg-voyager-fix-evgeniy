@@ -1,6 +1,7 @@
 {
     "name": "tcg-fix-evgeniy/voyager",
     "description": "fix tcg voyager",
+    "version": "1.0",
     "authors": [
         {
             "name": "Evgeniy Plyakin",
