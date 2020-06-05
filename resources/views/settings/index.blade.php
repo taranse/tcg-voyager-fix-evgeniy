@@ -310,7 +310,8 @@
                                     name="{{ $setting->key }}">{{ $setting->value ?? '' }}</div>
                                 <textarea name="{{ $setting->key }}" id="{{ $setting->key }}_textarea"
                                     class="hidden">{{ $setting->value ?? '' }}</textarea>
-                                @elseif($setting->type == "image" || $setting->type == "file" || $setting->type == "video")
+                                @elseif($setting->type == "image" || $setting->type == "file" || $setting->type ==
+                                "video")
                                 @if(isset( $setting->value ) && !empty( $setting->value ) &&
                                 Storage::disk(config('voyager.storage.disk'))->exists($setting->value))
                                 <div class="img_settings_container">
@@ -326,13 +327,12 @@
                                 <div data-field-name="{{ $setting->key }}">
                                     <a class="fileType" target="_blank"
                                         href="{{ Storage::disk(config('voyager.storage.disk'))->url($file->download_link) ?: '' }}"
-                                        data-file-name="{{ $file->original_name }}"
-                                        data-id="{{ $setting->id }}">
+                                        data-file-name="{{ $file->original_name }}" data-id="{{ $setting->id }}">
                                         {{ $file->original_name ?: '' }}
                                     </a>
                                     <a href="#" class="voyager-x remove-multi-file"></a>
                                 </div>
-                                @endforeach                                    
+                                @endforeach
                                 @endif
                                 @elseif($setting->type == "video" && isset( $setting->value ))
                                 @if (!empty($setting->value))
@@ -340,13 +340,12 @@
                                 <div data-field-name="{{ $setting->key }}">
                                     <a class="fileType" target="_blank"
                                         href="{{ Storage::disk(config('voyager.storage.disk'))->url($file->download_link) ?: '' }}"
-                                        data-file-name="{{ $file->original_name }}"
-                                        data-id="{{ $setting->id }}">
+                                        data-file-name="{{ $file->original_name }}" data-id="{{ $setting->id }}">
                                         {{ $file->original_name ?: '' }}
                                     </a>
                                     <a href="#" class="voyager-x remove-multi-file"></a>
                                 </div>
-                                @endforeach                                    
+                                @endforeach
                                 @endif
                                 @endif
                                 <input type="file" name="{{ $setting->key }}">
@@ -416,17 +415,20 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div>                             
-                                    <select style="margin-left: 10px;" class="form-control" name="{{ $setting->key }}_setting_group">
+                                <div>
+                                    <select style="margin-left: 10px;" class="form-control"
+                                        name="{{ $setting->key }}_setting_group">
                                         <option value="null">Выберите вкладку</option>
                                         @foreach($settings_group as $group)
-                                        <option value="{{ $group->name }}" {!! $setting->setting_group == $group->name ? 'selected' : ''
+                                        <option value="{{ $group->name }}" {!! $setting->setting_group == $group->name ?
+                                            'selected' : ''
                                             !!}>{{ $group->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                         </div>
+
                         @if(!$loop->last)
                         <hr>
                         @endif

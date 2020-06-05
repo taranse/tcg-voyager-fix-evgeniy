@@ -38,7 +38,9 @@ class File extends BaseType
             ];
 
             if ($this->type == 'video') {
+                $name = str_replace('.' .  $file->getClientOriginalExtension(), '', $file->getClientOriginalName()) . '.h264.' .  $file->getClientOriginalExtension();
                 $data['download_link_h264'] = $this->videoGenerate($path, $file->getClientOriginalExtension(), $file->getClientOriginalName());
+                $data['original_name_h264'] = $name;
             }
 
             array_push($filesPath, $data);
@@ -53,9 +55,10 @@ class File extends BaseType
 
         $video->export()
             ->toDisk('public')
-            ->inFormat((new X264('aac'))->setKiloBitrate(sqrt($video->getStreams()->first()->get('bit_rate') / 1000 / 1000) * 500))
+            ->inFormat((new X264('aac'))->setKiloBitrate(ceil(sqrt($video->getStreams()->first()->get('bit_rate') / 1000 / 1000) * 500)))
             ->save($disk . str_replace('.' . $file, '', $name) . '.h264.' . $file);
 
+        // 123;
         return $disk . str_replace('.' . $file, '', $name) . '.h264.' . $file;
     }
 
