@@ -18,10 +18,10 @@ class DescriptionHandler extends AbstractHandler
     public function createContent($row, $dataType, $dataTypeContent, $options)
     {
         return '<span class="glyphicon glyphicon-question-sign"
-                                        aria-hidden="true"
-                                        data-toggle="tooltip"
-                                        data-placement="right"
-                                        data-html="true"
-                                        title="'.$options->description.'"></span>';
+            aria-hidden="true"
+            data-toggle="tooltip"
+            data-placement="right"
+            data-html="true"
+            title="' . $options->description . '"></span>';
     }
 }

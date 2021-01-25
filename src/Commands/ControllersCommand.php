@@ -4,6 +4,7 @@ namespace TCG\Voyager\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
 class ControllersCommand extends Command
@@ -66,8 +67,8 @@ class ControllersCommand extends Command
 
         $appNamespace = app()->getNamespace();
 
-        if (!starts_with($namespace, $appNamespace)) {
-            return $this->error('The controllers namespace must start with your application namespace: '.$appNamespace);
+        if (!Str::startsWith($namespace, $appNamespace)) {
+            return $this->error('The controllers namespace must start with your application namespace: ' . $appNamespace);
         }
 
         $location = str_replace('\\', DIRECTORY_SEPARATOR, substr($namespace, strlen($appNamespace)));
@@ -84,7 +85,7 @@ class ControllersCommand extends Command
                 continue;
             }
 
-            $path = app_path($location.DIRECTORY_SEPARATOR.$filename);
+            $path = app_path($location . DIRECTORY_SEPARATOR . $filename);
 
             if (!$this->filesystem->exists($path) or $this->option('force')) {
                 $class = substr($filename, 0, strpos($filename, '.'));
@@ -103,7 +104,7 @@ class ControllersCommand extends Command
      */
     public function getStub()
     {
-        return $this->filesystem->get(base_path('/vendor/tcg-fix-evgeniy/voyager/stubs/'.$this->stub));
+        return $this->filesystem->get(base_path('/vendor/tcg-fix-evgeniy/voyager/stubs/' . $this->stub));
     }
 
     /**
@@ -126,13 +127,13 @@ class ControllersCommand extends Command
 
         $content = str_replace(
             'FullBaseDummyClass',
-            'TCG\\Voyager\\Http\\Controllers\\'.$class,
+            'TCG\\Voyager\\Http\\Controllers\\' . $class,
             $content
         );
 
         $content = str_replace(
             'BaseDummyClass',
-            'Base'.$class,
+            'Base' . $class,
             $content
         );
 

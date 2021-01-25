@@ -81,7 +81,6 @@ class VoyagerMenuController extends Controller
 
         $menuItem = Voyager::model('MenuItem')->findOrFail($id);
 
-
         $this->authorize('edit', $menuItem->menu);
 
         if (is_bread_translatable($menuItem)) {

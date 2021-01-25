@@ -16,10 +16,10 @@ return [
         'meta_keywords'    => 'Meta Keywords',
         'name'             => 'Имя',
         'order'            => 'Сортировка',
-        'page_image'       => 'Изображение Статьи',
+        'page_image'       => 'Изображение Страницы',
         'parent'           => 'Родитель',
         'password'         => 'Пароль',
-        'post_image'       => 'Изображение Сообщения',
+        'post_image'       => 'Изображение Статьи',
         'remember_token'   => 'Токен восстановления',
         'role'             => 'Роль',
         'seo_title'        => 'SEO Название',
@@ -38,12 +38,12 @@ return [
             'plural'   => 'Меню',
         ],
         'page'     => [
-            'singular' => 'Статья',
-            'plural'   => 'Статьи',
+            'singular' => 'Страница',
+            'plural'   => 'Страницы',
         ],
         'post'     => [
-            'singular' => 'Сообщение',
-            'plural'   => 'Сообщения',
+            'singular' => 'Статья',
+            'plural'   => 'Статьи',
         ],
         'role'     => [
             'singular' => 'Роль',
@@ -53,10 +53,6 @@ return [
             'singular' => 'Пользователь',
             'plural'   => 'Пользователи',
         ],
-        'settings_group' => [
-            'singular' => 'Группа настроек',
-            'plural'   => 'Группы настроек',
-        ]
     ],
     'menu_items' => [
         'bread'        => 'BREAD',
@@ -70,7 +66,6 @@ return [
         'posts'        => 'Статьи',
         'roles'        => 'Роли',
         'settings'     => 'Настройки',
-        'settings_group'     => 'Группы настроек',
         'tools'        => 'Инструменты',
         'users'        => 'Пользователи',
     ],

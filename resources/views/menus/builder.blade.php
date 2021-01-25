@@ -72,10 +72,12 @@
                     <input id="m_form_method" type="hidden" name="_method" value="POST">
                     {{ csrf_field() }}
                     <div class="modal-body">
-                        @include('voyager::multilingual.language-selector')
-                        <label for="name">{{ __('voyager::menu_builder.item_title') }}</label>
-                        @include('voyager::multilingual.input-hidden', ['_field_name' => 'title', '_field_trans' => ''])
-                        <input type="text" class="form-control multi_edit" id="m_title" name="title" placeholder="{{ __('voyager::generic.title') }}"><br>
+                        <div>
+                            @include('voyager::multilingual.language-selector')
+                            <label for="name">{{ __('voyager::menu_builder.item_title') }}</label>
+                            @include('voyager::multilingual.input-hidden', ['_field_name' => 'title', '_field_trans' => ''])
+                            <input type="text" class="form-control" id="m_title" name="title" placeholder="{{ __('voyager::generic.title') }}"><br>
+                        </div>
                         <label for="type">{{ __('voyager::menu_builder.link_type') }}</label>
                         <select id="m_link_type" class="form-control" name="type">
                             <option value="url" selected="selected">{{ __('voyager::menu_builder.static_url') }}</option>
@@ -140,8 +142,7 @@
                     "form":          'form',
                     "transInputs":   '#menu_item_modal input[data-i18n=true]',
                     "langSelectors": '.language-selector input',
-                    "editing":       true,
-                    'add_class_editing': '.multi_edit'
+                    "editing":       true
                 });
             @endif
 
@@ -194,7 +195,6 @@
              * Menu Modal is Open
              */
             $m_modal.on('show.bs.modal', function(e, data) {
-                console.log(e, data)
                 var _adding      = e.relatedTarget.data ? false : true,
                     translatable = $m_modal.data('multilingual'),
                     $_str_i18n   = '';
@@ -210,8 +210,6 @@
                     $m_icon_class.val('');
 
                 } else {
-                    console.log(e.relatedTarget.data.data('icon_class'));
-
                     $m_form.attr('action', $m_form.data('action-update'));
                     $m_form_method.val('PUT');
                     $m_hd_add.hide();
@@ -227,8 +225,6 @@
                     $m_icon_class.val(_src.data('icon_class'));
                     $m_color.val(_src.data('color'));
                     $m_id.val(id);
-
-                    console.log($m_icon_class.val(), 1);
 
                     if(translatable){
                         $_str_i18n = $("#title" + id + "_i18n").val();
@@ -256,13 +252,10 @@
                         $m_url_type.show();
                     }
                 }
-                console.log($m_icon_class.val(), 2);
 
                 if (translatable) {
                     $m_title_i18n.val($_str_i18n);
-                    console.log($m_icon_class.val(), 3);
                     translatable.refresh();
-                    console.log($m_modal.data('multilingual'));
                 }
             });
 
@@ -286,7 +279,7 @@
              */
             $('.item_actions').on('click', '.delete', function (e) {
                 id = $(e.currentTarget).data('id');
-                $('#delete_form')[0].action = '{{ route('voyager.menus.item.destroy', ['menu' => $menu->id, 'id' => '']) }}/' + id;
+                $('#delete_form')[0].action = '{{ route('voyager.menus.item.destroy', ['menu' => $menu->id, 'id' => '__id']) }}'.replace('__id', id);
                 $('#delete_modal').modal('show');
             });
 
