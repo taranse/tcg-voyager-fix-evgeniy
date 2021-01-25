@@ -17,8 +17,7 @@
         "arrilot/laravel-widgets": "^3.7",
         "league/flysystem": "~1.1|~2.0",
         "larapack/voyager-hooks": "~1.2.1",
-        "ext-json": "*",
-        "pbmedia/laravel-ffmpeg": "^5.0"
+        "ext-json": "*"
     },
     "require-dev": {
         "phpunit/phpcov": ">=6.0",
