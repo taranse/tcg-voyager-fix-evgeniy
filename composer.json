@@ -18,7 +18,7 @@
         "league/flysystem": "~1.1|~2.0",
         "larapack/voyager-hooks": "~1.2.1",
         "ext-json": "*",
-        "pbmedia/laravel-ffmpeg": "dev-master"
+        "pbmedia/laravel-ffmpeg": "7.5"
     },
     "require-dev": {
         "phpunit/phpcov": ">=6.0",
