@@ -1,5 +1,5 @@
 {
-    "version": "1.1.0",
+    "version": "1.1.1",
     "name": "tcg-fix-evgeniy/voyager",
     "description": "fix tcg voyager",
     "authors": [
@@ -17,7 +17,8 @@
         "arrilot/laravel-widgets": "^3.7",
         "league/flysystem": "~1.1|~2.0",
         "larapack/voyager-hooks": "~1.2.1",
-        "ext-json": "*"
+        "ext-json": "*",
+        "pbmedia/laravel-ffmpeg": "dev-master"
     },
     "require-dev": {
         "phpunit/phpcov": ">=6.0",
